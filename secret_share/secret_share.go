@@ -8,7 +8,7 @@ import (
 type Share struct {
 	X fr.Element // 在多项式中的采样点 x
 	Y fr.Element // 多项式在 x 处的值 f(x)
-}
+} //114514
 
 // Deal 将秘密 secret 拆分为 n 个分片，并设置恢复门槛为 t。
 //
