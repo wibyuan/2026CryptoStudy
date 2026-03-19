@@ -8,7 +8,7 @@ type Equation struct {
 }
 
 func SolveSimpleCRT(equations []Equation) *big.Int {
-	// TODO: finish SolveSimpleCRT. You can always assume that the moduli are pairwise coprime.
+	// finish SolveSimpleCRT. You can always assume that the moduli are pairwise coprime.
 	//return nil
 	M := big.NewInt(1)
 	for _, eq := range equations {
