@@ -29,3 +29,8 @@ func SolveSimpleCRT(equations []Equation) *big.Int {
 	}
 	return result.Mod(result, M)
 }
+
+func SolveSimple(equations []Equation) *big.Int {
+	// TODO: finish SolveSimpleCRT. You should check whether modulus is prime.
+	return nil
+}
