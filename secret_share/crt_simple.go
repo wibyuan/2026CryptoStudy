@@ -9,5 +9,23 @@ type Equation struct {
 
 func SolveSimpleCRT(equations []Equation) *big.Int {
 	// TODO: finish SolveSimpleCRT. You can always assume that the moduli are pairwise coprime.
-	return nil
+	//return nil
+	M := big.NewInt(1)
+	for _, eq := range equations {
+		M.Mul(M, eq.Modulus)
+	}
+	result := big.NewInt(0)
+	for _, eq := range equations {
+		a := eq.Remainder
+		m := eq.Modulus
+		Mi := new(big.Int).Div(M, m)
+		yi := new(big.Int).ModInverse(Mi, m)
+		if yi == nil {
+			return nil
+		}
+		term := new(big.Int).Mul(a, Mi)
+		term.Mul(term, yi)
+		result.Add(result, term)
+	}
+	return result.Mod(result, M)
 }
