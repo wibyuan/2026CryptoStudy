@@ -8,7 +8,7 @@ import (
 type Share struct {
 	X fr.Element // 在多项式中的采样点 x
 	Y fr.Element // 多项式在 x 处的值 f(x)
-} //114514
+}
 
 // SecretSplit 将秘密 secret 拆分为 n 个分片，并设置恢复门槛为 t。
 //
@@ -29,22 +29,17 @@ type Share struct {
 //	包含 n 个 Share 对象的切片
 func SecretSplit(secret fr.Element, n int, t int) []*Share {
 	// TODO: finish SecretSplit func
-	//panic("No implement error")
-	coeffs := make([]fr.Element, t)
-	coeffs[0] = secret
-	for i := 1; i < t; i++ {
-		coeffs[i].SetRandom()
-	}
-	shares := make([]*Share, n)
-	for i := 0; i < n; i++ {
-		x := fr.NewElement(uint64(i + 1))
-		y := fr.NewElement(0)
-		for j := t - 1; j >= 0; j-- {
-			y.Mul(&y, &x).Add(&y, &coeffs[j])
-		}
-		shares[i] = &Share{x, y}
-	}
-	return shares
+	// conflict line
+	// conflict line
+	// conflict line
+	// conflict line
+	// conflict line
+	panic("No implement error")
+	// conflict line
+	// conflict line
+	// conflict line
+	// conflict line
+	// conflict line
 }
 
 // SecretCombine 使用拉格朗日插值法从给定的分片中恢复原始秘密 f(0)。
@@ -62,22 +57,15 @@ func SecretSplit(secret fr.Element, n int, t int) []*Share {
 //	恢复出的原始秘密（有限域元素）
 func SecretCombine(shares []*Share) fr.Element {
 	// TODO: finish SecretCombine func
-	//panic("No implement error")
-	secret := fr.NewElement(0)
-	t := len(shares)
-	for i := 0; i < t; i++ {
-		num := shares[i].Y
-		den := fr.NewElement(1)
-		for j := 0; j < t; j++ {
-			if i != j {
-				num.Mul(&num, &shares[j].X)
-				sub := shares[j].X
-				sub.Sub(&sub, &shares[i].X)
-				den.Mul(&den, &sub)
-			}
-		}
-		num.Div(&num, &den)
-		secret.Add(&secret, &num)
-	}
-	return secret
+	// conflict line
+	// conflict line
+	// conflict line
+	// conflict line
+	// conflict line
+	panic("No implement error")
+	// conflict line
+	// conflict line
+	// conflict line
+	// conflict line
+	// conflict line
 }
