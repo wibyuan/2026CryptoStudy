@@ -1,6 +1,9 @@
 package secret_share
 
-import "math/big"
+import (
+	"2026CryptoStudy/is_prime"
+	"math/big"
+)
 
 type Equation struct {
 	Remainder *big.Int
@@ -32,5 +35,10 @@ func SolveSimpleCRT(equations []Equation) *big.Int {
 
 func SolveSimple(equations []Equation) *big.Int {
 	// TODO: finish SolveSimpleCRT. You should check whether modulus is prime.
-	return nil
+	for _, eq := range equations {
+		if !is_prime.IsPrime(eq.Modulus) {
+			return nil
+		}
+	}
+	return SolveSimpleCRT(equations)
 }
