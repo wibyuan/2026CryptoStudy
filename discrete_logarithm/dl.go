@@ -14,14 +14,32 @@ func ComputeDiscreteLogarithm(a, b, n *big.Int) (*big.Int, error) {
 	// m = ceil(sqrt(n))
 	m := ceilSqrt(n)
 	one := big.NewInt(1)
-
 	// --- Baby steps: build table of a^j mod n for j in [0, m) ---
 	// TODO: finish Baby steps
-
+	babySteps := make(map[string]*big.Int)
+	curr := new(big.Int).Set(one)
+	for j := big.NewInt(0); j.Cmp(m) < 0; j.Add(j, one) {
+		babySteps[curr.String()] = new(big.Int).Set(j)
+		curr.Mul(curr, a).Mod(curr, n)
+	}
 	// --- Giant steps: for i in [0, m], check if b * (a^-m)^i mod n is in table ---
 	// Compute a^m mod n, then its modular inverse: invAm = (a^m)^(-1) mod n
 	// TODO: finish Giant steps
-
+	step := new(big.Int).Exp(a, m, n)
+	invstep := new(big.Int).ModInverse(step, n)
+	target := new(big.Int).Set(b)
+	if invstep != nil {
+		for i := big.NewInt(0); i.Cmp(m) <= 0; i.Add(i, big.NewInt(1)) {
+			j, ok := babySteps[target.String()]
+			if ok {
+				res := new(big.Int).Mul(m, i)
+				res.Add(res, j)
+				return res, nil
+			}
+			target.Mul(target, invstep)
+			target.Mod(target, n)
+		}
+	}
 	return nil, fmt.Errorf("no solution: %v^x ≡ %v (mod %v) has no solution", a, b, n)
 }
 
